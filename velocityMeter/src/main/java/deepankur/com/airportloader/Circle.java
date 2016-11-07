@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -18,7 +19,8 @@ public class Circle extends View {
     private Paint paint, backgroundPaint;
     private RectF rect;
 
-    private float angle;
+    private float actualAngle;
+    private float animatingAngle;
 
     public Circle(Context context) {
         super(context);
@@ -60,9 +62,10 @@ public class Circle extends View {
 
         rect = new RectF(strokeWidth / 2, strokeWidth / 2, (2 * radius) - strokeWidth / 2, (2 * radius) - strokeWidth / 2);
 
-        //Initial Angle (optional, it can be zero)
-        angle = 110;
+        //50 is the percentage here
+        actualAngle = (80 * END_ANGLE) / 100;
     }
+
 
     private void initBackGroundPaint() {
         final int strokeWidth = 20;
@@ -75,22 +78,31 @@ public class Circle extends View {
         backgroundPaint.setColor(Color.BLACK);
 
         rect = new RectF(strokeWidth / 2, strokeWidth / 2, (2 * radius) - strokeWidth / 2, (2 * radius) - strokeWidth / 2);
-
-        //Initial Angle (optional, it can be zero)
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawArc(rect, START_ANGLE, END_ANGLE, false, backgroundPaint);
-        canvas.drawArc(rect, START_ANGLE, angle, false, paint);
+        canvas.drawArc(rect, START_ANGLE, animatingAngle, false, paint);
+        if (animatingAngle < actualAngle) {
+            h.postDelayed(r, VIEW_UPDATE_INTERVAL);
+        }
+
+
     }
 
-    public float getAngle() {
-        return angle;
-    }
+    final int ANIMATION_DURATION = 1000;
+    final int VIEW_UPDATE_INTERVAL = 30;
+    Handler h = new Handler();
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            animatingAngle += actualAngle / (ANIMATION_DURATION / VIEW_UPDATE_INTERVAL);//note 10 here is animation duration divided by view update interval
+            invalidate();
+            if (animatingAngle > actualAngle)
+                animatingAngle = actualAngle;
+        }
 
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
+    };
 }
