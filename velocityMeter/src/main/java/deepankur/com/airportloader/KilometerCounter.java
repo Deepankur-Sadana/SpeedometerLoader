@@ -21,17 +21,21 @@ public class KilometerCounter extends FrameLayout {
 
     public KilometerCounter(Context context) {
         super(context);
+        init(context);
     }
 
     public KilometerCounter(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
+
     }
 
     public KilometerCounter(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
     }
 
-    final int NUMBER_OF_TICKERS = 5;
+    final int NUMBER_OF_TICKERS = 10;
     TextView[] textViews = new TextView[NUMBER_OF_TICKERS];
 
     TextView initialTextView;
@@ -40,6 +44,14 @@ public class KilometerCounter extends FrameLayout {
         TextView textView = getTextView(getStringForStripElement(0));
         textView.setLayoutParams(new ViewGroup.LayoutParams(getWidth(), getHeight()));
         this.addView(textView);
+
+    }
+
+
+    int finalValue;
+
+
+    void setPreLoadingState() {
 
     }
 

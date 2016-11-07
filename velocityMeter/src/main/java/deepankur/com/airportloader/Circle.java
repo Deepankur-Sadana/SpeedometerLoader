@@ -14,9 +14,8 @@ import android.view.View;
 
 public class Circle extends View {
 
-    private static final int START_ANGLE_POINT = 0;
 
-    private Paint paint;
+    private Paint paint, backgroundPaint;
     private RectF rect;
 
     private float angle;
@@ -44,7 +43,11 @@ public class Circle extends View {
         invalidate();
     }
 
+    final int START_ANGLE = 160;
+    final int END_ANGLE = 220;
+
     private void init() {
+        initBackGroundPaint();
         radius = 100;
         final int strokeWidth = 20;
         paint = new Paint();
@@ -53,22 +56,34 @@ public class Circle extends View {
         paint.setStrokeWidth(strokeWidth);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setColor(Color.RED);
+        paint.setColor(Color.DKGRAY);
 
-        rect = new RectF(strokeWidth / 2, strokeWidth / 2, (2 * radius) - strokeWidth/2, (2 * radius) - strokeWidth/2);
+        rect = new RectF(strokeWidth / 2, strokeWidth / 2, (2 * radius) - strokeWidth / 2, (2 * radius) - strokeWidth / 2);
 
         //Initial Angle (optional, it can be zero)
-        angle = 340;
+        angle = 110;
     }
 
-    private void initBackGroundPaint(){
+    private void initBackGroundPaint() {
+        final int strokeWidth = 20;
+        backgroundPaint = new Paint();
+        backgroundPaint.setAntiAlias(true);
+        backgroundPaint.setStyle(Paint.Style.STROKE);
+        backgroundPaint.setStrokeWidth(strokeWidth);
+        backgroundPaint.setStrokeCap(Paint.Cap.ROUND);
+        backgroundPaint.setStrokeJoin(Paint.Join.ROUND);
+        backgroundPaint.setColor(Color.BLACK);
 
+        rect = new RectF(strokeWidth / 2, strokeWidth / 2, (2 * radius) - strokeWidth / 2, (2 * radius) - strokeWidth / 2);
+
+        //Initial Angle (optional, it can be zero)
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawArc(rect, START_ANGLE_POINT, angle, false, paint);
+        canvas.drawArc(rect, START_ANGLE, END_ANGLE, false, backgroundPaint);
+        canvas.drawArc(rect, START_ANGLE, angle, false, paint);
     }
 
     public float getAngle() {

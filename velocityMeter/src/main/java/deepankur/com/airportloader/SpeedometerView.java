@@ -26,11 +26,21 @@ public class SpeedometerView extends FrameLayout {
 
     private Context context;
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     private void init(Context context) {
+        this.context = context;
         int width = getWidth();
         int height = getHeight();
         Circle circle = new Circle(context);
         circle.setRadius(width);
         this.addView(circle);
+    }
+
+    void addMeter(){
+        KilometerCounter counter = new KilometerCounter(context);
     }
 }
