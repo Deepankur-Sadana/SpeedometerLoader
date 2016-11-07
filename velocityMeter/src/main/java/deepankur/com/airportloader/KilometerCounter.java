@@ -41,7 +41,6 @@ public class KilometerCounter extends FrameLayout implements AnimationConstants 
     }
 
     final int NUMBER_OF_TICKERS = 10;
-    TextView[] textViews = new TextView[NUMBER_OF_TICKERS];
 
     private void init(Context context) {
         this.context = context;
@@ -79,7 +78,14 @@ public class KilometerCounter extends FrameLayout implements AnimationConstants 
 
 
     private String getStringForStripElement(int index) {
-        return String.valueOf(index);
+        int  actualNumber= MAX_NUMBER - NUMBER_OF_TICKERS + index;
+        String s = String.valueOf(actualNumber);
+        String maxLengthString = String.valueOf(MAX_NUMBER);
+        String buffer = "";
+        for (int i = s.length(); i < maxLengthString.length(); i++) {
+            buffer += " ";
+        }
+        return buffer + actualNumber;
     }
 
     private LinearLayout strip;
@@ -99,17 +105,17 @@ public class KilometerCounter extends FrameLayout implements AnimationConstants 
         });
     }
 
-    int currentScroll;
-    int totalScroll;
+    private int currentScroll;
+    private int totalScroll;
 
-    void doAnimation(int totalScroll) {
+    private void doAnimation(int totalScroll) {
         this.totalScroll = totalScroll;
         currentScroll = 0;
         h.post(r);
     }
 
-    Handler h = new Handler();
-    Runnable r = new Runnable() {
+    private Handler h = new Handler();
+    private Runnable r = new Runnable() {
         @Override
         public void run() {
             if (currentScroll < totalScroll) {
@@ -120,7 +126,9 @@ public class KilometerCounter extends FrameLayout implements AnimationConstants 
         }
     };
 
-    ScrollView scrollView;
+
+    private final int MAX_NUMBER = 654;
+    private ScrollView scrollView;
 
     private int initAnimation() {
         strip = new LinearLayout(context);
