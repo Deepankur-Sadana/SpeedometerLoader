@@ -15,19 +15,19 @@ import java.util.Random;
  * Created by deepankur on 11/7/16.
  */
 
-public class KilometerTicker extends FrameLayout {
+public class KilometerCounter extends FrameLayout {
     private static final int TEXT_COLOR = Color.WHITE, BACKGROUND_COLOR = Color.TRANSPARENT;
     private static final int ANIMATION_DURATION = 1000;
 
-    public KilometerTicker(Context context) {
+    public KilometerCounter(Context context) {
         super(context);
     }
 
-    public KilometerTicker(Context context, AttributeSet attrs) {
+    public KilometerCounter(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public KilometerTicker(Context context, AttributeSet attrs, int defStyleAttr) {
+    public KilometerCounter(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
