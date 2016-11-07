@@ -2,6 +2,8 @@ package deepankur.com.airportloader;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 /**
@@ -38,9 +40,13 @@ public class SpeedometerView extends FrameLayout {
         Circle circle = new Circle(context);
         circle.setRadius(width);
         this.addView(circle);
+        addMeter();
     }
 
-    void addMeter(){
+    void addMeter() {
         KilometerCounter counter = new KilometerCounter(context);
+        counter.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        this.addView(counter);
+        ((LayoutParams) counter.getLayoutParams()).gravity = Gravity.CENTER;
     }
 }

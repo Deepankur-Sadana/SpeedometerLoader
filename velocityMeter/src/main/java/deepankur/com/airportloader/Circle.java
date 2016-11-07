@@ -13,7 +13,7 @@ import android.view.View;
  * Created by deepankur on 11/7/16.
  */
 
-public class Circle extends View {
+public class Circle extends View implements AnimationConstants {
 
 
     private Paint paint, backgroundPaint;
@@ -88,14 +88,10 @@ public class Circle extends View {
         if (animatingAngle < actualAngle) {
             h.postDelayed(r, VIEW_UPDATE_INTERVAL);
         }
-
-
     }
 
-    final int ANIMATION_DURATION = 1000;
-    final int VIEW_UPDATE_INTERVAL = 30;
-    Handler h = new Handler();
-    Runnable r = new Runnable() {
+    private Handler h = new Handler();
+    private Runnable r = new Runnable() {
         @Override
         public void run() {
             animatingAngle += actualAngle / (ANIMATION_DURATION / VIEW_UPDATE_INTERVAL);//note 10 here is animation duration divided by view update interval
@@ -103,6 +99,5 @@ public class Circle extends View {
             if (animatingAngle > actualAngle)
                 animatingAngle = actualAngle;
         }
-
     };
 }
